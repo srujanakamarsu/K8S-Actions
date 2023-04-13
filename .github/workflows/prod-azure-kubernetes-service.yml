@@ -35,10 +35,10 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: kubeacr102
+  AZURE_CONTAINER_REGISTRY: kuberegistry101 
   CONTAINER_NAME: image
-  RESOURCE_GROUP: ukaksrg
-  CLUSTER_NAME: aksgit
+  RESOURCE_GROUP: rg1
+  CLUSTER_NAME: kube-actions
   DEPLOYMENT_MANIFEST_PATH: |
         ./manifests/azure-vote-backend-deployment.yaml
         ./manifests/azure-vote-frontend-deployment.yaml
