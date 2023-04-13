@@ -27,7 +27,7 @@
 # For more samples to get started with GitHub Action workflows to deploy to Azure, refer to https://github.com/Azure/actions-workflow-samples
 # For more options with the actions used below please refer to https://github.com/Azure/login
 
-name: Build and deploy an app to AKS
+name: Build and deploy my sample app to AKS
 
 on:
   push:
@@ -40,11 +40,11 @@ env:
   RESOURCE_GROUP: rg1
   CLUSTER_NAME: kube-actions
   DEPLOYMENT_MANIFEST_PATH: |
-      ./manifests/azure-vote-backend-deployment.yaml
-       ./manifests/azure-vote-frontend-deployment.yaml
-        ./manifests/azure-vote-backend-service.yaml
-         ./manifests/azure-vote-frontend-service.yaml
-
+    ./manifests/azure-vote-backend-deployment.yaml
+    ./manifests/azure-vote-backend-service.yaml
+    ./manifests/azure-vote-frontend-deployment.yaml
+    ./manifests/azure-vote-frontend-service.yaml
+  
 jobs:
   buildImage:
     permissions:
@@ -66,8 +66,7 @@ jobs:
       # Builds and pushes an image up to your Azure Container Registry
       - name: Build and push image to ACR
         run: |
-          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} -f ./azure-vote/Dockerfile ./
-
+          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} . -f ./azure-vote/Dockerfile ./ 
   deploy:
     permissions:
       actions: read
